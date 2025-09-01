@@ -3,15 +3,19 @@ from constants import *
 
 pygame.init()
 pygame.mixer.quit()
+clock = pygame.time.Clock()
+
+
 
 def main():
     print("Starting Asteroids!")
     print("Screen width:", SCREEN_WIDTH)
     print("Screen height:", SCREEN_HEIGHT)
 
-# Set up the display outside main()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("My Pygame Window")
+
+dt = 0
 
 if __name__ == "__main__":
     main()
@@ -22,5 +26,11 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
 
-    pygame.quit()
+    screen.fill((0, 0, 0))  
+    pygame.display.flip()
+    clock.tick(60)
+    dt = clock.tick(60) / 1000  
+              
+
+pygame.quit()
 
