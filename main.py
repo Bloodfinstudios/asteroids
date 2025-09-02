@@ -1,39 +1,32 @@
+# python
 import pygame
-from constants import *
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from player import Player
 
-pygame.init()
-pygame.mixer.quit()
-clock = pygame.time.Clock()
-
 def main():
-    print("Starting Asteroids!")
-    print("Screen width:", SCREEN_WIDTH)
-    print("Screen height:", SCREEN_HEIGHT)
+    pygame.init()
+    pygame.mixer.quit()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("My Pygame Window")
+    clock = pygame.time.Clock()
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("My Pygame Window")
-Player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-
-dt = 0
-
-if __name__ == "__main__":
-    main()
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                
+    
+        
+        screen.fill((0, 0, 0))
+        player.draw(screen)
+        pygame.display.flip()
 
-    # Inside the main loop, after clearing the screen:
-    Player.draw(screen)
-    screen.fill((0, 0, 0))  
-    pygame.display.flip()
-    clock.tick(60)
-    dt = clock.tick(60) / 1000  
-              
+        dt = clock.tick(60) / 1000
 
-pygame.quit()
 
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()
