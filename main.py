@@ -22,18 +22,25 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     dt = 0
+    font = pygame.font.Font(None, 72)
+
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-
+        screen.fill("black")
         updatable.update(dt)
         
         for asteroid in asteroids:
             if asteroid.collides_with(player):
-                print("Game Over!")
-                sys.exit() 
+                screen.fill("black")
+                text_surf = font.render("Game Over!", True, pygame.Color("white"))
+                text_rect = text_surf.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+                screen.blit(text_surf, text_rect)
+                pygame.display.flip()
+                pygame.time.wait(1500)  
+                sys.exit()
 
         for obj in drawable:
            obj.draw(screen)       
