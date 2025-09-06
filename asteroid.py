@@ -14,7 +14,6 @@ class Asteroid(CircleShape):
 
     def update(self, dt):
         self.position += self.velocity * dt
-        self.center = self.position
 
         for group in self.containers:
              group.add(self)
