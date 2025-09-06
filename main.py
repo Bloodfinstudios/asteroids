@@ -1,6 +1,7 @@
 import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from player import Player
+from asteroid import Asteroid
 
 def main():
     pygame.init()
@@ -9,10 +10,22 @@ def main():
     pygame.display.set_caption("My Pygame Window")
     clock = pygame.time.Clock()
 
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    # Create pygame groups instead of lists
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
-    updatable = [player]
-    drawable = [player]
+    # Create player and add to groups
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    updatable.add(player)
+    drawable.add(player)
+
+    # Assign groups as containers for Asteroids
+    Asteroid.containers = (asteroids, updatable, drawable)
+
+    # Create asteroids; they auto-add to groups via containers
+    asteroid1 = Asteroid(100, 100, 40)
+    asteroid2 = Asteroid(300, 200, 25)
 
     running = True
     while running:
