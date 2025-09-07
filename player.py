@@ -6,7 +6,7 @@ class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
-        self.shoot_timer = 0  # cooldown timer starts at 0
+        self.shoot_timer = 0  
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -38,7 +38,6 @@ class Player(CircleShape):
             self.position -= disp
             self.move(dt, direction=-1)
 
-        # Update the shooting cooldown timer
         if self.shoot_timer > 0:
             self.shoot_timer -= dt
             if self.shoot_timer < 0:

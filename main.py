@@ -21,7 +21,7 @@ def main():
     Shot.containers = (shots, updatable, drawable)
 
 
-    asteroid_field = AsteroidField()
+    AsteroidField()
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     dt = 0
@@ -32,17 +32,15 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                shot = player.shoot()
-                shots.add(shot) 
-
         screen.fill("black")
 
         updatable.update(dt)
-
-        for shot in shots:
-            shot.update(dt)
-            shot.draw(screen)
+  
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            shot = player.shoot()
+            if shot is not None:
+                shots.add(shot)
 
         for asteroid in asteroids:
             if asteroid.collides_with(player):
