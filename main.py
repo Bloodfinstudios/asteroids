@@ -42,8 +42,19 @@ def main():
             if shot is not None:
                 shots.add(shot)
 
-        for asteroid in asteroids:
-            if asteroid.collides_with(player):
+        for asteroid in list(asteroids):
+             hit = False
+             for shot in list(shots):
+                 if asteroid.collides_with(shot):
+                    print("Hit:", asteroid, shot)
+                    shot.kill()
+                    asteroid.kill()
+                    hit = True
+                    break
+             if hit:
+                continue  
+
+             if asteroid.collides_with(player):
                 screen.fill("black")
                 text_surf = font.render("Game Over!", True, pygame.Color("white"))
                 text_rect = text_surf.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
@@ -51,7 +62,7 @@ def main():
                 pygame.display.flip()
                 pygame.time.wait(1500)
                 sys.exit()
-
+        
         for obj in drawable:
             obj.draw(screen)
 
